@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="log_success">#2E7D32</color>
+    <color name="log_error">#C62828</color>
+    <color name="log_info">#1565C0</color>
+    <color name="log_background">#1E1E1E</color>
+    <color name="log_text_default">#E0E0E0</color>
+</resources>
