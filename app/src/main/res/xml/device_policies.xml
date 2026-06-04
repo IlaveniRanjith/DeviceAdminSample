@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Package Management">
+        <Preference
+            android:key="silent_install"
+            android:title="Silent Install APK"
+            android:summary="Install an APK without user intervention" />
+        <Preference
+            android:key="silent_uninstall_list"
+            android:title="Silent Uninstall"
+            android:summary="Choose an app to uninstall silently" />
+        <Preference
+            android:key="block_uninstallation_list"
+            android:title="Block Uninstallation"
+            android:summary="Choose an app to prevent uninstallation" />
+        <Preference
+            android:key="hide_apps_list"
+            android:title="Hide Apps"
+            android:summary="Choose an app to hide from launcher" />
+        <Preference
+            android:key="unhide_apps_list"
+            android:title="Unhide Apps"
+            android:summary="Choose a hidden app to make visible" />
+        <Preference
+            android:key="suspend_apps_list"
+            android:title="Suspend Apps"
+            android:summary="Choose an app to suspend" />
+        <Preference
+            android:key="clear_app_data_list"
+            android:title="Clear App Data"
+            android:summary="Choose an app to wipe its data" />
+        <EditTextPreference
+            android:key="install_existing_package"
+            android:title="Install Existing Package"
+            android:summary="Install a package that exists in another user" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="User Restrictions">
+        <SwitchPreferenceCompat
+            android:key="disallow_factory_reset"
+            android:title="Disallow Factory Reset" />
+        <SwitchPreferenceCompat
+            android:key="disallow_add_user"
+            android:title="Disallow Add User" />
+        <SwitchPreferenceCompat
+            android:key="disallow_mount_physical_media"
+            android:title="Disallow Physical Media" />
+        <SwitchPreferenceCompat
+            android:key="disallow_config_wifi"
+            android:title="Disallow Config WiFi" />
+        <SwitchPreferenceCompat
+            android:key="disallow_install_unknown_sources"
+            android:title="Disallow Unknown Sources" />
+        <SwitchPreferenceCompat
+            android:key="disallow_debugging_features"
+            android:title="Disallow Debugging Features" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Hardware &amp; Media">
+        <SwitchPreferenceCompat
+            android:key="disable_camera"
+            android:title="Disable Camera" />
+        <SwitchPreferenceCompat
+            android:key="disable_screen_capture"
+            android:title="Disable Screen Capture" />
+        <SwitchPreferenceCompat
+            android:key="mute_audio"
+            android:title="Mute Master Volume" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Security &amp; Lock Screen">
+        <SwitchPreferenceCompat
+            android:key="disable_keyguard"
+            android:title="Disable Keyguard" />
+        <EditTextPreference
+            android:key="set_lockscreen_info"
+            android:title="Set Lock Screen Info"
+            android:dialogTitle="Lock Screen Message" />
+        <Preference
+            android:key="set_permission_policy"
+            android:title="Default Permission Policy"
+            android:summary="Set global behavior for permission requests" />
+        <Preference
+            android:key="manage_app_permissions"
+            android:title="Manage App Permissions"
+            android:summary="Grant/Deny permissions for a specific app" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Advanced MDM">
+        <Preference
+            android:key="set_delegated_scopes"
+            android:title="Delegation"
+            android:summary="Delegate scopes to another package" />
+        <Preference
+            android:key="set_accessibility_services"
+            android:title="Permitted Accessibility"
+            android:summary="Restrict accessibility services" />
+        <Preference
+            android:key="set_input_methods"
+            android:title="Permitted Input Methods"
+            android:summary="Restrict input methods" />
+        <Preference
+            android:key="set_notification_listeners"
+            android:title="Notification Listeners"
+            android:summary="Restrict notification listeners" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="WiFi Management">
+        <ListPreference
+            android:key="set_wifi_security_level"
+            android:title="Min WiFi Security Level"
+            android:entries="@array/wifi_security_entries"
+            android:entryValues="@array/wifi_security_values" />
+        <EditTextPreference
+            android:key="set_wifi_ssid_restriction"
+            android:title="WiFi SSID Restriction"
+            android:summary="Comma separated SSIDs" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="System Settings">
+        <EditTextPreference
+            android:key="set_screen_brightness"
+            android:title="Screen Brightness (0-255)" />
+        <EditTextPreference
+            android:key="set_screen_off_timeout"
+            android:title="Screen Off Timeout (seconds)" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

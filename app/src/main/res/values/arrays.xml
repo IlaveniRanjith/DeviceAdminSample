@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="permission_policy_entries">
+        <item>Prompt</item>
+        <item>Auto Grant</item>
+        <item>Auto Deny</item>
+    </string-array>
+    <string-array name="permission_policy_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="wifi_security_entries">
+        <item>Open</item>
+        <item>Personal</item>
+        <item>Enterprise EAP</item>
+        <item>Enterprise 192</item>
+    </string-array>
+    <string-array name="wifi_security_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+</resources>
