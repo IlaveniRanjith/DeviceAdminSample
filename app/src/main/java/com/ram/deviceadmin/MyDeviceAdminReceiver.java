@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.admin.DeviceAdminReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInstaller;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
@@ -43,6 +44,30 @@ public class MyDeviceAdminReceiver extends DeviceAdminReceiver {
             if (manager != null) {
                 manager.createNotificationChannel(channel);
             }
+        }
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+        if (PackageInstallationUtils.ACTION_INSTALL_COMPLETE.equals(action)) {
+            int status = intent.getIntExtra(PackageInstaller.EXTRA_STATUS, PackageInstaller.STATUS_FAILURE);
+            String msg = intent.getStringExtra(PackageInstaller.EXTRA_STATUS_MESSAGE);
+            if (status == PackageInstaller.STATUS_SUCCESS) {
+                logEvent(context, "Silent installation SUCCESSFUL", "success");
+            } else {
+                logEvent(context, "Silent installation FAILED: " + msg, "error");
+            }
+        } else if (PackageInstallationUtils.ACTION_UNINSTALL_COMPLETE.equals(action)) {
+            int status = intent.getIntExtra(PackageInstaller.EXTRA_STATUS, PackageInstaller.STATUS_FAILURE);
+            String pkg = intent.getStringExtra(Intent.EXTRA_PACKAGE_NAME);
+            if (status == PackageInstaller.STATUS_SUCCESS) {
+                logEvent(context, "Silent uninstallation SUCCESSFUL for " + pkg, "success");
+            } else {
+                logEvent(context, "Silent uninstallation FAILED for " + pkg, "error");
+            }
+        } else {
+            super.onReceive(context, intent);
         }
     }
 

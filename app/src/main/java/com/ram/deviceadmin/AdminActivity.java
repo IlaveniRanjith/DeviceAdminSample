@@ -55,6 +55,13 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin);
+
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Device Admin");
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -139,6 +146,9 @@ public class AdminActivity extends AppCompatActivity {
         findViewById(R.id.btnEnableCamera).setOnClickListener(v -> setCameraDisabled(false));
         findViewById(R.id.btnShowAdminStatus).setOnClickListener(v -> showAdminStatus());
         findViewById(R.id.btnSetTimeout).setOnClickListener(v -> setMaximumTimeToLock());
+        findViewById(R.id.btnAdvancedPolicies).setOnClickListener(v -> {
+            startActivity(new Intent(AdminActivity.this, AdvancedPoliciesActivity.class));
+        });
         
         findViewById(R.id.btnCopyLogs).setOnClickListener(v -> copyLogs());
         findViewById(R.id.btnExportLogs).setOnClickListener(v -> exportLogs());
