@@ -23,7 +23,7 @@ const theme = createTheme({
   },
 });
 
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:3001');
 
 function App() {
   const [devices, setDevices] = useState([]);

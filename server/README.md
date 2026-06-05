@@ -8,25 +8,29 @@ This server allows you to remotely control Android devices enrolled as Device Ad
 
 ## 🚀 Getting Started
 
-### 1. Backend Setup
-```bash
-cd backend
-npm install
-npm start
-```
-Default port: **3000**
+### Unified Start (Recommended)
+You can start both the backend and frontend with a single command from the `server` root folder:
 
-### 2. Frontend Setup
 ```bash
-cd frontend
-npm install
+# First time setup (installs all dependencies)
+npm run setup
+
+# Start both services
 npm start
+
+# To Stop
+Press `Ctrl+C` in the terminal.
 ```
-Runs at: **http://localhost:3000** (Ensure backend is running)
+
+### Manual Setup
+If you prefer starting them separately:
+
+1. **Backend**: `cd backend && npm start` (Port: 3001)
+2. **Frontend**: `cd frontend && npm start` (Port: 3000)
 
 ## 📡 Connecting a Device
 1. Open the Android app.
-2. Enter the server's **IP Address** and **Port** (e.g., `192.168.1.10:3000`).
+2. Enter the server's **IP Address** and **Port** (e.g., `192.168.1.10:3001`).
 3. Click **Connect**.
 4. The device will appear in the web dashboard.
 

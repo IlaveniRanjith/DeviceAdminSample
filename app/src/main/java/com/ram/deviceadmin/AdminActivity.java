@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -91,6 +92,8 @@ public class AdminActivity extends AppCompatActivity {
         
         setupButtons();
         refreshLogs();
+
+        logSetupWizardStatus(this);
     }
 
     private void toggleRemoteConnection() {
@@ -331,5 +334,53 @@ public class AdminActivity extends AppCompatActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public static void logSetupWizardStatus(Context context) {
+
+        try {
+
+            // Global settings
+            int deviceProvisioned = Settings.Global.getInt(
+                    context.getContentResolver(),
+                    Settings.Global.DEVICE_PROVISIONED,
+                    -1
+            );
+
+            int globalSetupWizardHasRun = Settings.Global.getInt(
+                    context.getContentResolver(),
+                    "setup_wizard_has_run",
+                    -1
+            );
+
+            // Secure settings
+            int userSetupComplete = Settings.Secure.getInt(
+                    context.getContentResolver(),
+                    "user_setup_complete", // Use string literal as constant might be hidden
+                    -1
+            );
+
+            int secureSetupWizardHasRun = Settings.Secure.getInt(
+                    context.getContentResolver(),
+                    "setup_wizard_has_run",
+                    -1
+            );
+
+            int personalizationState = Settings.Secure.getInt(
+                    context.getContentResolver(),
+                    "user_setup_personalization_state",
+                    -1
+            );
+
+            // Log output
+            Log.d(TAG, "DEVICE_PROVISIONED = " + deviceProvisioned);
+            Log.d(TAG, "GLOBAL setup_wizard_has_run = " + globalSetupWizardHasRun);
+            Log.d(TAG, "USER_SETUP_COMPLETE = " + userSetupComplete);
+            Log.d(TAG, "SECURE setup_wizard_has_run = " + secureSetupWizardHasRun);
+            Log.d(TAG, "USER_SETUP_PERSONALIZATION_STATE = " + personalizationState);
+
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to read setup wizard settings", e);
+        }
     }
 }
