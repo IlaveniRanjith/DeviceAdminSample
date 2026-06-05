@@ -16,6 +16,8 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +42,9 @@ public class AdminActivity extends AppCompatActivity {
     
     private TextView tvLogs;
     private ScrollView logScrollView;
+    private EditText etServerIp, etServerPort;
+    private Button btnConnectServer;
+    private RemoteConnectionManager remoteManager;
 
     private final BroadcastReceiver eventReceiver = new BroadcastReceiver() {
         @Override
@@ -73,9 +78,47 @@ public class AdminActivity extends AppCompatActivity {
 
         tvLogs = findViewById(R.id.tvLogs);
         logScrollView = findViewById(R.id.logScrollView);
+        etServerIp = findViewById(R.id.etServerIp);
+        etServerPort = findViewById(R.id.etServerPort);
+        btnConnectServer = findViewById(R.id.btnConnectServer);
+
+        remoteManager = RemoteConnectionManager.getInstance(this);
+
+        etServerIp.setText(remoteManager.getServerIp());
+        etServerPort.setText(remoteManager.getServerPort());
+
+        btnConnectServer.setOnClickListener(v -> toggleRemoteConnection());
         
         setupButtons();
         refreshLogs();
+    }
+
+    private void toggleRemoteConnection() {
+        if (remoteManager.isConnected()) {
+            stopService(new Intent(this, RemoteConnectionService.class));
+            btnConnectServer.setText("Connect");
+            localLog("Disconnected from server", "info");
+        } else {
+            String ip = etServerIp.getText().toString().trim();
+            String port = etServerPort.getText().toString().trim();
+            if (ip.isEmpty() || port.isEmpty()) {
+                Toast.makeText(this, "Enter IP and Port", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            remoteManager.saveConnectionDetails(ip, port);
+            localLog("Starting Connection Service...", "info");
+
+            Intent serviceIntent = new Intent(this, RemoteConnectionService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(serviceIntent);
+            } else {
+                startService(serviceIntent);
+            }
+
+            // We listen for the broadcast events to update the UI button text
+            btnConnectServer.setText("Connecting...");
+        }
     }
 
     @Override
@@ -103,6 +146,10 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private void refreshLogs() {
+        if (btnConnectServer != null && remoteManager != null) {
+            btnConnectServer.setText(remoteManager.isConnected() ? "Disconnect" : "Connect");
+        }
+
         String allLogs = LogRepository.getLogs(this);
         if (allLogs.isEmpty()) {
             tvLogs.setText("No logs available.");

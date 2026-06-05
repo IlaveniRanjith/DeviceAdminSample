@@ -15,3 +15,7 @@
 local.properties
 
 .idea
+
+server/backend/node_modules
+server/frontend/node_modules
+server/*/build/
