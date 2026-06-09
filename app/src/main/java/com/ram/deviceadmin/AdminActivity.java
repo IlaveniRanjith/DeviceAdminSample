@@ -93,6 +93,13 @@ public class AdminActivity extends AppCompatActivity {
         setupButtons();
         refreshLogs();
 
+        try {
+            int version = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            localLog("Current Version Code: " + version, "info");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         logSetupWizardStatus(this);
     }
 

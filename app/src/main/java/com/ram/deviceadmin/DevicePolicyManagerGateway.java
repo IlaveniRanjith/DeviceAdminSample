@@ -58,6 +58,10 @@ public class DevicePolicyManagerGateway {
         }
     }
 
+    public boolean isUninstallBlocked(String packageName) {
+        return dpm.isUninstallBlocked(adminComponent, packageName);
+    }
+
     public void setApplicationHidden(String packageName, boolean hidden, Consumer<String> onSuccess, Consumer<Exception> onError) {
         try {
             boolean success = dpm.setApplicationHidden(adminComponent, packageName, hidden);

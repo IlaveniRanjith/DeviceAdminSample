@@ -15,6 +15,10 @@
             android:title="Block Uninstallation"
             android:summary="Choose an app to prevent uninstallation" />
         <Preference
+            android:key="allow_uninstallation_list"
+            android:title="Allow Uninstallation"
+            android:summary="Resume uninstallation for a blocked app" />
+        <Preference
             android:key="hide_apps_list"
             android:title="Hide Apps"
             android:summary="Choose an app to hide from launcher" />

@@ -64,10 +64,20 @@ public class PolicyManagementFragment extends PreferenceFragmentCompat {
 
         findPreference("block_uninstallation_list").setOnPreferenceClickListener(preference -> {
             showAppSelectionDialog("Block Uninstallation", 
-                app -> true,
+                app -> !gateway.isUninstallBlocked(app.packageName),
                 (pkg) -> gateway.setUninstallBlocked(pkg, true,
                     msg -> log(msg, "success"),
                     e -> log("Block uninstall failed: " + e.getMessage(), "error")
+                ));
+            return true;
+        });
+
+        findPreference("allow_uninstallation_list").setOnPreferenceClickListener(preference -> {
+            showAppSelectionDialog("Allow Uninstallation", 
+                app -> gateway.isUninstallBlocked(app.packageName),
+                (pkg) -> gateway.setUninstallBlocked(pkg, false,
+                    msg -> log("Uninstall allowed for " + pkg, "success"),
+                    e -> log("Allow uninstall failed: " + e.getMessage(), "error")
                 ));
             return true;
         });
